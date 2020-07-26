@@ -6,7 +6,8 @@ gPos_x = x div TILE_W;
 gPos_y = y div TILE_W;
 var mapDepthData = global.theMap[# gPos_x, gPos_y];
 if (mapDepthData != 0) {
-	depth = mapDepthData.depth -1;
+	set_Depth(mapDepthData[? "X"], mapDepthData[? "Y"], mapDepthData[? "Z"]);
+	depth--;
 }
 
 // GET ISOMETRIC POSITION
@@ -27,9 +28,9 @@ var tileData = global.theMap[# new_x, new_y];
 
 // COLLIDE WITH VOID OR LEDGE
 if (tileData != 0
-&&	abs(iso_z - tileData.iso_z) <= z_range) 
+&&	abs(iso_z - tileData[? "Z"]) <= z_range) 
 {
-	iso_z = tileData.iso_z;
+	iso_z = tileData[? "Z"];
 	// APPLY MOVEMENT IF NEXT TILE IS GROUND AND WITHIN Z-RANGE
 	x = floor(x + move_x);
 	y = floor(y + move_y);

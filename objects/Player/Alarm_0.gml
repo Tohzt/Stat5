@@ -1,4 +1,4 @@
-/// @description Insert description here
+/// @description RECOVER
 // You can write your code in this editor
 
 hp = min (hp + hps, max_hp);

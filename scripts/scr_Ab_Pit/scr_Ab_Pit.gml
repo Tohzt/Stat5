@@ -17,11 +17,11 @@ for (var i = -(_size div 2); i <= _size div 2; i++) {
 	_xx = global.HL_X + i*_cX;
 	_yy = global.HL_Y + i*_cY;
 	
-	var thisTile = global.theMap[# _xx, _yy];
-	if (thisTile != 0) {
-		thisTile.iso_z -= _height;
-		thisTile.alarm[0] = _dur;
-		global.theMap[# _xx, _yy] = thisTile;
+	var _thisTile = global.theMap[# _xx, _yy];
+	if (_thisTile != 0) {
+		_thisTile[? "Z"] -= _height;
+		_thisTile[? "ResPos"] = _dur;
+		global.theMap[# _xx, _yy] = _thisTile;
 	}
 }
 

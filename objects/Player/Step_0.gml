@@ -3,23 +3,28 @@
 // SET DEPTH
 gPos_x = x div TILE_W;
 gPos_y = y div TILE_W;
-var mapDepthData = global.theMap[# gPos_x, gPos_y];
-if (mapDepthData != 0) {
-	depth = mapDepthData.depth -1;
-	iso_z = mapDepthData.iso_z;
+var _thisTile = global.theMap[# gPos_x, gPos_y];
+if (_thisTile != 0) {
+	set_Depth(_thisTile[? "X"], _thisTile[? "Y"], _thisTile[? "Z"]);
+	depth--;
+	iso_z = _thisTile[? "Z"];
 }
 
 Player_Input();
-move_x = 0;
-move_y = 0;
-look_x = 0;
-look_y = 0;
+
+// MOVE (not in slide-state)
+if (state != STATES.SLIDE) {
+	move_x = 0;
+	move_y = 0;
+	look_x = 0;
+	look_y = 0;
 
 // KEYBOARD TO MOVE_DIR
-if keyW move_y = -1;
-if keyA move_x = -1;
-if keyS move_y =  1;
-if keyD move_x =  1;
+	if keyW move_y = -1;
+	if keyA move_x = -1;
+	if keyS move_y =  1;
+	if keyD move_x =  1;
+}
 
 // KEYBOARD TO LOOK_DIR
 if lookR look_x =  1;
@@ -49,6 +54,9 @@ switch(state) {
 		break;
 	case STATES.WALK:
 		scr_pState_Walk(is_moving, is_aiming);
+		break;
+	case STATES.SLIDE:
+		scr_pState_Slide(is_moving, is_aiming);
 		break;
 }
 sprite_index = anim_current;
@@ -90,8 +98,26 @@ switch (skill_current) {
 	case SKILLS.WALL:
 		tar_dist = 128;
 		break;
+	case SKILLS.PIT:
+		tar_dist = 128;
+		break;
 }
 
 // ATTACK MECHANICS
 scr_pAction_Ability();
+
+// HURT BY FLOOR
+if (_thisTile[? "Type"] == oFire) {
+	if (vulnerable) {
+		vulnerable = false;
+		alarm[1] = iFrames;
+		hp = max(0, hp-10);
+	}
+}
+
+// DEATH STATE
+if (hp <= 0) {
+	show_debug_message("YOU DIED!");
+	game_restart();
+}
 

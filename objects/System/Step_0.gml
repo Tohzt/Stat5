@@ -3,42 +3,51 @@
 // SELECT GRID LAYER
 Player_Input();
 
-// MOVE SELECTED
-/*
-if selU global.HL_Y--; 
-if selL global.HL_X--;
-if selD global.HL_Y++;
-if selR global.HL_X++;
-*/
+// DEFAULT HL
+
+for (var ii = 0; ii < MAP_W; ii++) {
+	for (var jj = 0; jj < MAP_H; jj++) {
+		var _thisTile = global.theMap[# ii,jj];
+		_thisTile[? "HL"] = 0;
+		global.theMap[# ii,jj] = _thisTile;
+	}
+}
+
+// MANIPULATE HIGHLIGHTED TILE
 if (global.HL_X != -1
 &&	global.HL_Y != -1){
 #region CHANGE ELEVATION
 	if (incZ) {
-		var thisTile = global.theMap[# global.HL_X,global.HL_Y];
-		if (thisTile != 0) {
-			thisTile.iso_z += delta_z;
-			global.theMap[# global.HL_X,global.HL_Y] = thisTile;
+		var _thisTile = global.theMap[# global.HL_X,global.HL_Y];
+		if (_thisTile != 0) {
+			_thisTile[? "Z"] += delta_z;
+			_thisTile[? "iZ"] = _thisTile[? "Z"];
+			_thisTile[? "Depth"] = set_Depth(_thisTile[? "X"], _thisTile[? "Y"], _thisTile[? "Z"])
+			global.theMap[# global.HL_X,global.HL_Y] = _thisTile;
 		}
 	}
 	if (decZ) {
-		var thisTile = global.theMap[# global.HL_X,global.HL_Y];
-		if (thisTile != 0) {
-			thisTile.iso_z -= delta_z;
-			global.theMap[# global.HL_X,global.HL_Y] = thisTile;
+		var _thisTile = global.theMap[# global.HL_X,global.HL_Y];
+		if (_thisTile != 0) {
+			_thisTile[? "Z"] -= delta_z;
+			_thisTile[? "iZ"] = _thisTile[? "Z"];
+			global.theMap[# global.HL_X,global.HL_Y] = _thisTile;
 		}
 	} #endregion
 
 	#region CHANGE BLOCK TYPE
+	/*
 	if (incBlock) {
-		var thisTile = global.theMap[# global.HL_X,global.HL_Y];
-		thisTile.image_index = 1 + !(thisTile.image_index-1);
-		global.theMap[# global.HL_X,global.HL_Y] = thisTile;
+		var _thisTile = global.theMap[# global.HL_X,global.HL_Y];
+		_thisTile.image_index = 1 + !(_thisTile.image_index-1);
+		global.theMap[# global.HL_X,global.HL_Y] = _thisTile;
 	}
 	if (decBlock) {
-		var thisTile = global.theMap[# global.HL_X,global.HL_Y];
-		thisTile.image_index = 2;
-		global.theMap[# global.HL_X,global.HL_Y] = thisTile;
-	} #endregion
+		var _thisTile = global.theMap[# global.HL_X,global.HL_Y];
+		_thisTile.image_index = 1 + !(_thisTile.image_index-1);
+		global.theMap[# global.HL_X,global.HL_Y] = _thisTile;
+	}*/
+	#endregion
 }
 	
 	

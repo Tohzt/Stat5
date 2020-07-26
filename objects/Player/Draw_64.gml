@@ -3,7 +3,14 @@
 // DRAW VITALS DISPLAY
 draw_sprite(spr_Vitals_HUD, 0, 40, 40);
 // HEALTH
-draw_sprite(spr_Vitals, 0, 80, 40);
+draw_sprite_part(
+	spr_Vitals,
+	0, 
+	0, 
+	0,
+	lerp(0,104,hp/max_hp),
+	52,
+	80, 14);
 // STANIMA
 draw_sprite_part(
 	spr_Vitals,

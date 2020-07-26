@@ -14,7 +14,7 @@ if (mp >= skill_cost
 				break;
 			case SKILLS.WALL:
 				if (is_aiming) {
-					scr_Ab_Shield(3, 32, 120);
+					scr_Ab_Shield(5, 32, 120);
 				}
 				else show_debug_message("MUST BE AIMING!")
 				break;

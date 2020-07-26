@@ -16,6 +16,8 @@ max_mp = 100;
 mp = max_mp;
 max_stamina = 100;
 stamina = max_stamina;
+vulnerable = true;
+iFrames = 30;
 
 // RECOVERY
 alarm[0] = 60;
@@ -61,6 +63,7 @@ anim_current = anim_idle;
 enum STATES {
 	IDLE,
 	WALK,
+	SLIDE,
 	CASTING
 }
 state = STATES.IDLE;

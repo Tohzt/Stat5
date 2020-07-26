@@ -2,6 +2,7 @@
 /// @desc Walking State Management
 /// @param moving bool
 /// @param aiming bool
+//show_debug_message("WALK");
 
 var _isMoving = argument0;
 var _isAiming = argument1;
@@ -55,34 +56,6 @@ else {
 	image_speed = 0;
 	image_index = 0;
 	state = STATES.IDLE;
-	/*
-	if (_isAiming) {
-		// SET TARGET TO AIMED DIRECTION
-		tar_x = x + lengthdir_x(tar_dist, look_dir);
-		tar_y = y + lengthdir_y(tar_dist, look_dir);
-		
-		// LOOK AT AIMING DIRECTIONG
-		switch(floor(look_dir)) { 
-			case 0:
-				anim_current = anim_walkR;
-				break;
-			case 90:
-				anim_current = anim_walkU;
-				break;
-			case 180:
-				anim_current = anim_walkL;
-				break;
-			case 270:
-				anim_current = anim_walkD;
-				break;
-			case 360:
-				anim_current = anim_walkR;
-				break;
-		}
-	} else {
-		// DEFAULT: TARGET FOLLOWS PLAYER
-	}
-	*/
 }
 #endregion
 
@@ -93,10 +66,13 @@ var tileData = global.theMap[# new_x, new_y];
 
 // COLLIDE WITH VOID OR LEDGE
 if (tileData != 0
-&&	abs(iso_z - tileData.iso_z) <= z_range) 
-{
-	iso_z = tileData.iso_z;
+&&	abs(iso_z - tileData[? "Z"]) <= z_range) 
+{ 
+	iso_z = tileData[? "Z"];
 	// APPLY MOVEMENT IF NEXT TILE IS GROUND AND WITHIN Z-RANGE
 	x = floor(x + move_x);
 	y = floor(y + move_y);
 }
+
+if (tileData[? "Type"] == oIce)
+	state = STATES.SLIDE;

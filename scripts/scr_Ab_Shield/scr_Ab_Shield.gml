@@ -17,28 +17,14 @@ for (var i = -(_size div 2); i <= _size div 2; i++) {
 	_xx = global.HL_X + i*_cX;
 	_yy = global.HL_Y + i*_cY;
 	
-	var thisTile = global.theMap[# _xx, _yy];
-	if (thisTile != 0) {
-		thisTile.iso_z += _height;
-		thisTile.alarm[0] = _dur;
-		global.theMap[# _xx, _yy] = thisTile;
+	var _thisTile = global.theMap[# _xx, _yy];
+	if (_thisTile != 0
+	&&	_thisTile[? "Z"] == _thisTile[? "iZ"]
+	&&	_thisTile[? "Z"] == iso_z
+	&&	_thisTile[? "HL"]) {
+		// SUMMON SHEILD
+		_thisTile[? "Z"] = iso_z + _height;
+		_thisTile[? "ResPos"] = _dur;
+		global.theMap[# _xx, _yy] = _thisTile;
 	}
 }
-
-/*
-var thisTile = global.theMap[# global.HL_X,global.HL_Y];
-if (thisTile != 0) {
-	thisTile.iso_z += _height;
-	global.theMap[# global.HL_X,global.HL_Y] = thisTile;
-}
-thisTile = global.theMap[# global.HL_X-1,global.HL_Y];
-if (thisTile != 0) {
-	thisTile.iso_z += _height;
-	global.theMap[# global.HL_X-1,global.HL_Y] = thisTile;
-}
-thisTile = global.theMap[# global.HL_X+1,global.HL_Y];
-if (thisTile != 0) {
-	thisTile.iso_z += _height;
-	global.theMap[# global.HL_X+1,global.HL_Y] = thisTile;
-}
-*/

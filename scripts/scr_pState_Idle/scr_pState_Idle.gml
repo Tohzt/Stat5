@@ -2,9 +2,12 @@
 /// @desc Idle State Management
 /// @param moving
 /// @param aiming
+//show_debug_message("IDLE");
 
 var _isMoving = argument0;
 var _isAiming = argument1;
+
+image_speed = 0;
 
 if (_isAiming) { 
 	scr_pAction_Aim(); } else {
