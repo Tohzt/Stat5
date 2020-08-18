@@ -13,7 +13,6 @@ init_z = _thisTile[? "iZ"];
 
 // RESET POSITION
 if (_thisTile[? "ResPos"] != -1) {
-	show_debug_message("TRIGGER RESET")
 	alarm[0] = _thisTile[? "ResPos"];
 	_thisTile[? "ResPos"] = -1;
 }

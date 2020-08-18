@@ -1,16 +1,18 @@
 /// @description PLAYER MOVEMENT MECHANICS
 
-// SET DEPTH
+Player_Input();
+
+// GET GRID COORD
 gPos_x = x div TILE_W;
 gPos_y = y div TILE_W;
+
+// SET DEPTH (based on standing tile)
 var _thisTile = global.theMap[# gPos_x, gPos_y];
 if (_thisTile != 0) {
 	set_Depth(_thisTile[? "X"], _thisTile[? "Y"], _thisTile[? "Z"]);
 	depth--;
 	iso_z = _thisTile[? "Z"];
 }
-
-Player_Input();
 
 // MOVE (not in slide-state)
 if (state != STATES.SLIDE) {
@@ -44,7 +46,6 @@ if (is_aiming) { look_dir = point_direction(0,0,look_x,look_y); look_dir = (look
 if (global.isIso) {
 	iso_x = toIso_X(x, y);
 	iso_y = toIso_Y(x, y);
-	
 }
 
 // STATE MACHINE
@@ -65,6 +66,7 @@ sprite_index = anim_current;
 global.HL_X = tar_x div TILE_W;
 global.HL_Y = tar_y div TILE_W;
 
+#region SKILL SELECT
 // SKILL SELECT
 if (skill_1) {
 	skill_current = SKILLS.FIREBALL;
@@ -102,11 +104,12 @@ switch (skill_current) {
 		tar_dist = 128;
 		break;
 }
+#endregion
 
 // ATTACK MECHANICS
 scr_pAction_Ability();
 
-// HURT BY FLOOR
+// THE FLOOR IS LAVA
 if (_thisTile[? "Type"] == oFire) {
 	if (vulnerable) {
 		vulnerable = false;

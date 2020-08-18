@@ -5,33 +5,40 @@
 // SET TARGET TO AIMED DIRECTION
 tar_x = x + lengthdir_x(tar_dist, look_dir);
 tar_y = y + lengthdir_y(tar_dist, look_dir);
+var _hlPos_x = gPos_x + ((lengthdir_x(tar_dist, look_dir)) div TILE_W);
+var _hlPos_y = gPos_y + ((lengthdir_y(tar_dist, look_dir)) div TILE_W);
 
-// APPLY HIGHLIGHT TO MAP GRID
-var _thisTile = global.theMap[# gPos_x, gPos_y + 2];
-_thisTile[? "HL"] = true;
-global.theMap[# gPos_x, gPos_y] = _thisTile;
-				
-				
-/*
-// APPLY HIGHLIGHT TO MAP GRID
-for (var ii = 0; ii < Player.hl_w; ii++) {
-	for (var jj = 0; jj < Player.hl_h; jj++) {
-		if (Player.hl_Grid[# ii,jj] == 1) {
-			// ADJUST FOR GRID POSITION
-			var _xPos = (Player.gPos_x - Player.hl_w div 2)+ii;
-			var _yPos = (Player.gPos_y - Player.hl_h div 2)+jj;
-			
-			if (isWithinRange(_xPos, 0, MAP_W)
-			&&	isWithinRange(_yPos, 0, MAP_H)) {
-				var _thisTile = global.theMap[# _xPos, _yPos];
-				_thisTile[? "HL"] = true;
-				global.theMap[# _xPos, _yPos] = _thisTile;
-			}
-		}
-	}
+// APPLY TARGET TO MAP HIGHLIGHT
+
+var _size_x = 0;
+var _xx, _yy;
+var _cX = true;
+var _cY = false;
+
+// TARGET OVER AREA
+switch(skill_current) {
+	case SKILLS.WALL:
+		_size_x   = 3;
+		break;
+	case SKILLS.PIT:
+		_size_x   = 1;
+		break;
 }
-*/
-		
+
+if (_size_x > 0)
+for (var i = -(_size_x div 2); i <= _size_x div 2; i++) {
+	if (look_dir == 0 || look_dir == 180 || look_dir == 360) {
+		_cX = false;
+		_cY = true;
+	}
+	_xx = _hlPos_x + i*_cX;
+	_yy = _hlPos_y + i*_cY;
+	
+	var _thisTile = global.theMap[# _xx, _yy];
+	_thisTile[? "HL"] = true;
+	global.theMap[# _xx, _yy] = _thisTile;
+}
+
 // LOOK IN AIMING DIRECTION
 switch(floor(look_dir)) { 
 	case 0:

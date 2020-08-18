@@ -1,3 +1,5 @@
+/// @description Insert description here
+// You can write your code in this editor
 /// @description INITIALIZELAYER
 
 // PERSPECTIVE
@@ -49,15 +51,6 @@ is_moving = false;
 
 // INITIALIZE CAMERA
 instance_create_depth(x,y,depth,oCamera);
-
-// WALK ANIMATION
-anim_idle  = sPlayer_WalkD;
-anim_walkU = sPlayer_WalkU;
-anim_walkL = sPlayer_WalkL;
-anim_walkD = sPlayer_WalkD;
-anim_walkR = sPlayer_WalkR;
-
-anim_current = anim_idle;
 
 // STATE MACHINE
 enum STATES {
